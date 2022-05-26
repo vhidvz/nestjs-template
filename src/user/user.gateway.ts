@@ -2,7 +2,7 @@ import { WebSocketGateway, SubscribeMessage, MessageBody } from '@nestjs/websock
 import { Filter } from 'common/decorators/socket-filter.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserDocument } from './entities/user.entity';
+import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 
 @WebSocketGateway()
@@ -15,32 +15,32 @@ export class UserGateway {
   }
 
   @SubscribeMessage('createUser')
-  public async create(@MessageBody() createUserDto: CreateUserDto): Promise<UserDocument> {
+  public async create(@MessageBody() createUserDto: CreateUserDto): Promise<User> {
     return await this.userService.create(createUserDto);
   }
 
   @SubscribeMessage('findUser')
-  public async find(@Filter() filter: any): Promise<UserDocument[]> {
+  public async find(@Filter() filter: any): Promise<User[]> {
     return await this.userService.find(filter);
   }
 
   @SubscribeMessage('findUserById')
-  public async findById(@MessageBody() id: string): Promise<UserDocument> {
+  public async findById(@MessageBody() id: string): Promise<User> {
     return await this.userService.findById(id);
   }
 
   @SubscribeMessage('updateUser')
-  public async update(@MessageBody() updateUserDto: UpdateUserDto): Promise<UserDocument> {
+  public async update(@MessageBody() updateUserDto: UpdateUserDto): Promise<User> {
     return await this.userService.update(updateUserDto._id, updateUserDto);
   }
 
   @SubscribeMessage('deleteUser')
-  public async delete(@MessageBody() id: string): Promise<UserDocument> {
+  public async delete(@MessageBody() id: string): Promise<User> {
     return await this.userService.delete(id);
   }
 
   @SubscribeMessage('restoreUser')
-  public async restore(@MessageBody() id: string): Promise<UserDocument> {
+  public async restore(@MessageBody() id: string): Promise<User> {
     return await this.userService.restore(id);
   }
 }

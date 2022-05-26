@@ -10,6 +10,7 @@ import GraphQLJSON from 'graphql-type-json';
 import { AppService } from './app.service';
 import { Module } from '@nestjs/common';
 import { join } from 'path';
+import { AuthModule } from './auth/auth.module';
 import 'reflect-metadata';
 
 @Module({
@@ -26,6 +27,7 @@ import 'reflect-metadata';
       cors: true,
     }),
     UserModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

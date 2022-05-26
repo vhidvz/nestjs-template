@@ -2,7 +2,7 @@ import { Controller, Get, Post, Body, Patch, Param, Delete, Head } from '@nestjs
 import { Filter } from 'common/decorators/restful-filter.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
-import { UserDocument } from './entities/user.entity';
+import { User } from './entities/user.entity';
 import { UserService } from './user.service';
 import { ApiTags } from '@nestjs/swagger';
 
@@ -17,17 +17,17 @@ export class UserController {
   }
 
   @Post()
-  public async create(@Body() createUserDto: CreateUserDto): Promise<UserDocument> {
+  public async create(@Body() createUserDto: CreateUserDto): Promise<User> {
     return await this.userService.create(createUserDto);
   }
 
   @Get()
-  public async find(@Filter() filter: any): Promise<UserDocument[]> {
+  public async find(@Filter() filter: any): Promise<User[]> {
     return await this.userService.find(filter);
   }
 
   @Get(':id')
-  public async findById(@Param('id') id: string): Promise<UserDocument> {
+  public async findById(@Param('id') id: string): Promise<User> {
     return await this.userService.findById(id);
   }
 
@@ -35,17 +35,17 @@ export class UserController {
   public async update(
     @Param('id') id: string,
     @Body() updateUserDto: UpdateUserDto,
-  ): Promise<UserDocument> {
+  ): Promise<User> {
     return await this.userService.update(id, updateUserDto);
   }
 
   @Delete(':id')
-  public async delete(@Param('id') id: string): Promise<UserDocument> {
+  public async delete(@Param('id') id: string): Promise<User> {
     return await this.userService.delete(id);
   }
 
   @Head(':id')
-  public async restore(@Param('id') id: string): Promise<UserDocument> {
+  public async restore(@Param('id') id: string): Promise<User> {
     return await this.userService.restore(id);
   }
 }
