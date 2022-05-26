@@ -5,7 +5,6 @@ export function MONGO_CONFIG(): string {
   const port = parseInt(process.env.MONGO_PORT, 10) ?? 27017;
   let database = process.env.MONGO_DB ?? 'production';
 
-  console.debug(process.env);
   if (process.env.NODE_ENV.startsWith('dev')) {
     database = 'develop';
   } else if (process.env.NODE_ENV.startsWith('test')) {
