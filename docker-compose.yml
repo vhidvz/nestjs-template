@@ -1,0 +1,36 @@
+version: '3.4' # specify docker-compose version
+
+networks:
+  backend:
+
+# Define the services/containers to be run
+services:
+  mysql:
+    image: mysql:8.0
+    ports:
+      - "3306:3306"
+    networks:
+      - backend
+    environment:
+      - MYSQL_ROOT_PASSWORD=my-secret-pw
+
+  redis:
+    image: redis:7.0
+    ports:
+      - "6379:6379"
+    networks:
+      - backend
+
+  mongo:
+    image: mongo:5.0
+    ports:
+      - "27017:27017"
+    networks:
+      - backend
+
+  cassandra:
+    image: cassandra:4.0
+    ports:
+      - "9042:9042"
+    networks:
+      - backend
