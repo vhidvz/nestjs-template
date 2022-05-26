@@ -1,38 +1,53 @@
-import { Injectable } from '@nestjs/common';
-import { CreateUserDto } from './dto/create-user.dto';
+import { User, UserDocument } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
+import { CreateUserDto } from './dto/create-user.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import { Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
 
 @Injectable()
 export class UserRepository {
-  count(filter?: any) {
-    return `This action returns all user`;
+  constructor(@InjectModel(User.name) private readonly userModel: Model<UserDocument>) {}
+
+  public async count(filter?: any): Promise<number> {
+    return await this.userModel.count(filter).exec();
   }
 
-  create(createUserDto: CreateUserDto) {
-    return 'This action adds a new user';
+  public async create(createUserDto: CreateUserDto): Promise<UserDocument> {
+    return await this.userModel.create({ ...createUserDto, createdAt: new Date() });
   }
 
-  find(filter?: any): any[] {
-    return [`This action returns all user`];
+  public async find(filter?: any): Promise<UserDocument[]> {
+    return await this.userModel.find(filter).exec();
   }
 
-  findOne(id: string) {
-    return `This action returns a #${id} user`;
+  public async findOne(filter: any, projection?: any): Promise<UserDocument> {
+    return await this.userModel.findOne(filter, projection).exec();
   }
 
-  update(id: string, updateUserDto: UpdateUserDto) {
-    return `This action updates a #${id} user`;
+  public async findById(id: string, projection?: any): Promise<UserDocument> {
+    return await this.userModel.findById(id, projection).exec();
   }
 
-  delete(id: string) {
-    return `This action removes a #${id} user`;
+  public async update(id: string, updateUserDto: UpdateUserDto): Promise<UserDocument> {
+    return await this.userModel
+      .findByIdAndUpdate(id, { ...updateUserDto, updatedAt: new Date() }, { new: true })
+      .exec();
   }
 
-  restore(id: string) {
-    return `This action restores a #${id} user`;
+  public async delete(id: string): Promise<UserDocument> {
+    return await this.userModel
+      .findByIdAndUpdate(id, { deletedAt: new Date() }, { new: true })
+      .exec();
   }
 
-  destroy(id: string) {
-    return `This action destroys a #${id} user`;
+  public async restore(id: string): Promise<UserDocument> {
+    return await this.userModel
+      .findByIdAndUpdate(id, { restoredAt: new Date(), $unset: { deletedAt: 1 } }, { new: true })
+      .exec();
+  }
+
+  public async destroy(id: string): Promise<UserDocument> {
+    return await this.userModel.findByIdAndRemove(id).exec();
   }
 }

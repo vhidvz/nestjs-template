@@ -8,7 +8,7 @@ type Profile {
   phone: String
 }
 
-type User implements Entity {
+type User implements BaseEntity {
   _id: ID
   tags: [String!]
   groups: [String!]
@@ -27,7 +27,7 @@ type User implements Entity {
   roles: [String!]!
 }
 
-interface Entity {
+interface BaseEntity {
   _id: ID
   tags: [String!]
   groups: [String!]
