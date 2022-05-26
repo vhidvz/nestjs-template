@@ -1,0 +1,24 @@
+scalar ID
+scalar Date
+scalar Filter
+
+interface Entity {
+  _id: ID!
+
+  tags: [String!]
+
+  groups: [String!]
+  partners: [String!]
+
+  createdAt: Date!
+  createdBy: String!
+
+  updatedAt: Date
+  updatedBy: String
+
+  deletedAt: Date
+  deletedBy: String
+
+  restoredAt: Date
+  restoredBy: String
+}

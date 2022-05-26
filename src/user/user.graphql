@@ -1,0 +1,73 @@
+type Profile {
+  name: String!
+  email: String
+  phone: String
+}
+
+type User implements Entity {
+  profile: Profile!;
+
+  username: String!;
+  password: String;
+
+  roles: [Role!]!;
+  
+  tags: [String!]
+
+  groups: [String!]
+  partners: [String!]
+
+  createdAt: Date!
+  createdBy: String!
+
+  updatedAt: Date
+  updatedBy: String
+
+  deletedAt: Date
+  deletedBy: String
+
+  restoredAt: Date
+  restoredBy: String
+}
+
+input CreateUserInput {
+  profile: Profile;
+
+  username: String;
+  password: String;
+
+  roles: [Role];
+  
+  tags: [String]
+
+  groups: [String]
+  partners: [String]
+}
+
+input UpdateUserInput {
+  _id: ID!
+
+  profile: Profile;
+
+  username: String;
+  password: String;
+
+  roles: [Role];
+  
+  tags: [String]
+
+  groups: [String]
+  partners: [String]
+}
+
+type Query {
+  users: [User]!
+  user(id: ID!): User
+}
+
+type Mutation {
+  createUser(createUserInput: CreateUserInput!): User!
+  updateUser(updateUserInput: UpdateUserInput!): User!
+  restoreUser(id: ID!): User
+  deleteUser(id: ID!): User
+}
