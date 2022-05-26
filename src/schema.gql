@@ -1,0 +1,78 @@
+# ------------------------------------------------------
+# THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
+# ------------------------------------------------------
+
+type Profile {
+  name: String!
+  email: String
+  phone: String
+}
+
+type User implements Entity {
+  _id: ID
+  tags: [String!]
+  groups: [String!]
+  partners: [String!]
+  createdAt: DateTime!
+  createdBy: String!
+  updatedAt: DateTime
+  updatedBy: String
+  deletedAt: DateTime
+  deletedBy: String
+  restoredAt: DateTime
+  restoredBy: String
+  profile: Profile!
+  username: String!
+  password: String
+  roles: [String!]!
+}
+
+interface Entity {
+  _id: ID
+  tags: [String!]
+  groups: [String!]
+  partners: [String!]
+  createdAt: DateTime!
+  createdBy: String!
+  updatedAt: DateTime
+  updatedBy: String
+  deletedAt: DateTime
+  deletedBy: String
+  restoredAt: DateTime
+  restoredBy: String
+}
+
+"""
+A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date-time format.
+"""
+scalar DateTime
+
+type Query {
+  countUser: Int!
+  users(filter: Filter!): [User!]!
+  user(id: String!): User!
+}
+
+"""A simple Filter parser"""
+scalar Filter
+
+type Mutation {
+  createUser(createUserDto: CreateUserDto!): User!
+  updateUser(updateUserDto: UpdateUserDto!): User!
+  deleteUser(id: String!): User!
+  restoreUser(id: String!): User!
+}
+
+input CreateUserDto {
+  username: String!
+  details: JSON!
+}
+
+"""
+The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
+"""
+scalar JSON
+
+input UpdateUserDto {
+  _id: ID!
+}

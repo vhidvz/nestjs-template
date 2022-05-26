@@ -12,8 +12,8 @@ export class UserRepository {
     return 'This action adds a new user';
   }
 
-  find(filter?: any) {
-    return `This action returns all user`;
+  find(filter?: any): any[] {
+    return [`This action returns all user`];
   }
 
   findOne(id: string) {

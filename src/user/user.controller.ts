@@ -12,7 +12,10 @@ import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { Filter } from 'common/decorators/restful-filter.decorator';
 import { UserService } from './user.service';
+import { ApiTags } from '@nestjs/swagger';
+import { User } from './entities/user.entity';
 
+@ApiTags('users')
 @Controller('users')
 export class UserController {
   constructor(private readonly userService: UserService) {}
@@ -28,7 +31,7 @@ export class UserController {
   }
 
   @Get()
-  public async find(@Filter() filter: any) {
+  public async find(@Filter() filter: any): Promise<User[]> {
     return this.userService.find(filter);
   }
 

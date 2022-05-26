@@ -1,3 +1,14 @@
-import { User } from '../entities/user.entity';
+import { Field, InputType } from '@nestjs/graphql';
+import { IsNotEmpty, IsString } from 'class-validator';
+import GraphQLJSON from 'graphql-type-json';
 
-export class CreateUserDto extends User {}
+@InputType()
+export class CreateUserDto {
+  @IsString()
+  @IsNotEmpty()
+  @Field(() => String)
+  username: string;
+
+  @Field(() => GraphQLJSON)
+  details: object;
+}
