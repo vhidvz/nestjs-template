@@ -25,9 +25,9 @@ export class UserMicroservice {
     return this.userService.find(filter);
   }
 
-  @MessagePattern('findOneUser')
-  public async findOne(@Payload() id: string): Promise<User> {
-    return this.userService.findOne(id);
+  @MessagePattern('findUserById')
+  public async findById(@Payload() id: string): Promise<User> {
+    return this.userService.findById(id);
   }
 
   @MessagePattern('updateUser')

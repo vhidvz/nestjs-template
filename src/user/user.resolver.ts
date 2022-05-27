@@ -21,12 +21,12 @@ export class UserResolver {
     return await this.userService.create(createUserDto);
   }
 
-  @Query(() => [User], { name: 'users' })
+  @Query(() => [User], { name: 'findUser' })
   public async find(@Args('filter', { type: () => GraphQLFilter }) filter: any): Promise<User[]> {
     return await this.userService.find(filter);
   }
 
-  @Query(() => User, { name: 'user' })
+  @Query(() => User, { name: 'findUserById' })
   public async findById(@Args('id') id: ID): Promise<User> {
     return await this.userService.findById(id);
   }
