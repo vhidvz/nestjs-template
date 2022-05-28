@@ -1,5 +1,6 @@
 import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { ApiHideProperty } from '@nestjs/swagger';
 import { Exclude, Type } from 'class-transformer';
 import { IsEmail, IsMobilePhone, IsNotEmpty, IsString } from 'class-validator';
 import { BaseEntity } from 'common/entity';
@@ -36,27 +37,28 @@ export class User extends BaseEntity {
   @Type(() => Profile)
   @Field(() => Profile)
   @Prop({ required: true, type: Profile })
-  profile: Profile;
+  public profile: Profile;
 
   @IsString()
   @IsNotEmpty()
   @Field(() => String)
   @Prop({ required: true, type: String })
-  username: string;
+  public username: string;
 
   @Exclude()
+  @ApiHideProperty()
   @Field(() => String, { nullable: true })
   @Prop({ required: false, type: String })
-  password?: string;
+  public password?: string;
 
   @Exclude()
   @Field(() => [String])
   @Prop({ required: true, type: [String] })
-  roles: string[];
+  public roles: string[];
 
-  constructor(user?: Partial<User>) {
+  constructor(user: Partial<User>) {
     super(user);
-    if (user) Object.assign(this, user);
+    Object.assign(this, user);
   }
 }
 

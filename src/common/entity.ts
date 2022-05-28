@@ -29,10 +29,10 @@ export class BaseEntity {
   @Field(() => [String], { nullable: true })
   public partners?: string[];
 
-  @Prop({ required: true, type: Date })
   @ApiProperty({ type: Date, format: 'date-time' })
-  @Field(() => GraphQLISODateTime)
-  public createdAt: Date;
+  @Field(() => GraphQLISODateTime, { nullable: true })
+  @Prop({ required: true, type: Date, default: () => new Date() })
+  public createdAt?: Date;
 
   @Prop({ required: true, type: String })
   @ApiProperty({ type: String, format: 'uuid' })

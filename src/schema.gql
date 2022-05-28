@@ -13,7 +13,7 @@ type User implements BaseEntity {
   tags: [String!]
   groups: [String!]
   partners: [String!]
-  createdAt: DateTime!
+  createdAt: DateTime
   createdBy: String!
   updatedAt: DateTime
   updatedBy: String
@@ -32,7 +32,7 @@ interface BaseEntity {
   tags: [String!]
   groups: [String!]
   partners: [String!]
-  createdAt: DateTime!
+  createdAt: DateTime
   createdBy: String!
   updatedAt: DateTime
   updatedBy: String
@@ -64,15 +64,27 @@ type Mutation {
 }
 
 input CreateUserDto {
+  _id: ID
+  tags: [String!]
+  groups: [String!]
+  partners: [String!]
+  profile: CreateProfileDto!
   username: String!
-  details: JSON!
+  password: String
 }
 
-"""
-The `JSON` scalar type represents JSON values as specified by [ECMA-404](http://www.ecma-international.org/publications/files/ECMA-ST/ECMA-404.pdf).
-"""
-scalar JSON
+input CreateProfileDto {
+  name: String!
+  email: String
+  phone: String
+}
 
 input UpdateUserDto {
   _id: ID!
+  tags: [String!]
+  groups: [String!]
+  partners: [String!]
+  profile: CreateProfileDto!
+  username: String!
+  password: String
 }
