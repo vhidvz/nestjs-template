@@ -1,7 +1,9 @@
 import { Command, CommandRunner, Option } from 'nest-commander';
 import { user } from './collections/user.collection';
 import { Injectable } from '@nestjs/common';
-import { UserService } from 'user/user.service';
+import { MongoProvider } from './mongo.provider';
+import { User } from 'user/entities/user.entity';
+import * as pluralize from 'pluralize';
 
 interface MongoCommandOptions {
   collection?: string[] | true;
@@ -15,7 +17,7 @@ interface MongoCommandOptions {
   description: 'MongoDB commands',
 })
 export class MongoService implements CommandRunner {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly mongoProvider: MongoProvider) {}
 
   public async run(
     passedParams: string[],
@@ -26,17 +28,35 @@ export class MongoService implements CommandRunner {
 
   public async seed(options?: MongoCommandOptions): Promise<void> {
     console.log('Seeding mongo...');
-    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     const cond = (collection) =>
       (typeof options?.collection === 'boolean' && options?.collection) ||
       (typeof options?.collection === 'object' &&
         options?.collection.includes(collection));
 
-    if (cond('mongo'))
-      user.forEach(async (item) => await this.userService.create(item));
+    try {
+      await this.mongoProvider.connect();
+      console.log('Connected successfully to server');
 
-    console.log('Mongo seeded!');
+      const db = this.mongoProvider.db(process.env.MONGO_DB);
+
+      // users collection
+      const usersCollectionName = pluralize(User.name.toLowerCase());
+      if (cond(usersCollectionName)) {
+        const collection = db.collection<User>(usersCollectionName);
+        await collection.insertMany(user);
+
+        console.log(
+          '\x1b[32m%s\x1b[0m',
+          `Inserted ${user.length} documents into the ${usersCollectionName} collection`,
+        );
+      }
+    } catch (error) {
+      console.log(error);
+    } finally {
+      this.mongoProvider.close();
+      console.log('Mongo seeded!');
+    }
   }
 
   @Option({

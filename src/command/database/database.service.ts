@@ -25,7 +25,6 @@ export class DatabaseService implements CommandRunner {
 
   public async seed(options?: DatabaseCommandOptions): Promise<void> {
     console.log('Seeding database...');
-    await new Promise((resolve) => setTimeout(resolve, 1000));
 
     const cond = (db) =>
       (typeof options?.database === 'boolean' && options?.database) ||

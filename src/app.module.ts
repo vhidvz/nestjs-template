@@ -1,6 +1,6 @@
-import { DatabaseCommand, MongoDatabaseCommand } from 'command/database';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLFilter } from './common/scalars/filter.scalar';
+import { DatabaseCommand } from 'command/database';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AuthModule } from './auth/auth.module';
@@ -34,7 +34,6 @@ import 'reflect-metadata';
     UserModule,
     // command
     DatabaseCommand,
-    MongoDatabaseCommand,
   ],
   controllers: [AppController],
   providers: [AppService],
