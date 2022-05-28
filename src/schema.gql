@@ -2,44 +2,51 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
-type Profile {
-  name: String!
+interface BaseEntity {
+  _id: ID
+  createdAt: DateTime
+  createdBy: String!
+  deletedAt: DateTime
+  deletedBy: String
+  groups: [String!]
+  partners: [String!]
+  restoredAt: DateTime
+  restoredBy: String
+  tags: [String!]
+  updatedAt: DateTime
+  updatedBy: String
+}
+
+input CreateGrantDto {
+  action: String!
+  createdBy: String!
+  field: [String!]!
+  filter: [String!]!
+  location: [String!]!
+  object: String!
+  role: String!
+  time: [CreateTimeDto!]
+}
+
+input CreateProfileDto {
   email: String
+  name: String!
   phone: String
 }
 
-type User implements BaseEntity {
-  _id: ID
-  tags: [String!]
-  groups: [String!]
-  partners: [String!]
-  createdAt: DateTime
-  createdBy: String!
-  updatedAt: DateTime
-  updatedBy: String
-  deletedAt: DateTime
-  deletedBy: String
-  restoredAt: DateTime
-  restoredBy: String
-  profile: Profile!
-  username: String!
-  password: String
-  roles: [String!]!
+input CreateTimeDto {
+  cron_exp: String!
+  duration: Int!
 }
 
-interface BaseEntity {
+input CreateUserDto {
   _id: ID
-  tags: [String!]
   groups: [String!]
   partners: [String!]
-  createdAt: DateTime
-  createdBy: String!
-  updatedAt: DateTime
-  updatedBy: String
-  deletedAt: DateTime
-  deletedBy: String
-  restoredAt: DateTime
-  restoredBy: String
+  password: String
+  profile: CreateProfileDto!
+  tags: [String!]
+  username: String!
 }
 
 """
@@ -47,44 +54,99 @@ A date-time string at UTC, such as 2019-12-03T09:54:33Z, compliant with the date
 """
 scalar DateTime
 
+"""A simple Filter parser"""
+scalar Filter
+
+type Grant implements BaseEntity {
+  _id: ID
+  action: String!
+  createdAt: DateTime
+  createdBy: String!
+  deletedAt: DateTime
+  deletedBy: String
+  field: [String!]!
+  filter: [String!]!
+  groups: [String!]
+  location: [String!]!
+  object: String!
+  partners: [String!]
+  restoredAt: DateTime
+  restoredBy: String
+  role: String!
+  tags: [String!]
+  time: [Time!]
+  updatedAt: DateTime
+  updatedBy: String
+}
+
+type Mutation {
+  createGrant(createGrantDto: CreateGrantDto!): Grant!
+  createUser(createUserDto: CreateUserDto!): User!
+  deleteGrant(id: String!): Grant!
+  deleteUser(id: String!): User!
+  restoreGrant(id: String!): Grant!
+  restoreUser(id: String!): User!
+  updateGrant(updateGrantDto: UpdateGrantDto!): Grant!
+  updateUser(updateUserDto: UpdateUserDto!): User!
+}
+
+type Profile {
+  email: String
+  name: String!
+  phone: String
+}
+
 type Query {
+  countGrant: Int!
   countUser: Int!
+  findGrant(filter: Filter!): [Grant!]!
+  findGrantById(id: String!): Grant!
   findUser(filter: Filter!): [User!]!
   findUserById(id: String!): User!
 }
 
-"""A simple Filter parser"""
-scalar Filter
-
-type Mutation {
-  createUser(createUserDto: CreateUserDto!): User!
-  updateUser(updateUserDto: UpdateUserDto!): User!
-  deleteUser(id: String!): User!
-  restoreUser(id: String!): User!
+type Time {
+  cron_exp: String!
+  duration: Int!
 }
 
-input CreateUserDto {
-  _id: ID
-  tags: [String!]
-  groups: [String!]
-  partners: [String!]
-  profile: CreateProfileDto!
-  username: String!
-  password: String
-}
-
-input CreateProfileDto {
-  name: String!
-  email: String
-  phone: String
+input UpdateGrantDto {
+  _id: ID!
+  action: String!
+  createdBy: String!
+  field: [String!]!
+  filter: [String!]!
+  location: [String!]!
+  object: String!
+  role: String!
+  time: [CreateTimeDto!]
 }
 
 input UpdateUserDto {
   _id: ID!
-  tags: [String!]
   groups: [String!]
   partners: [String!]
-  profile: CreateProfileDto!
-  username: String!
   password: String
+  profile: CreateProfileDto!
+  tags: [String!]
+  username: String!
+}
+
+type User implements BaseEntity {
+  _id: ID
+  createdAt: DateTime
+  createdBy: String!
+  deletedAt: DateTime
+  deletedBy: String
+  groups: [String!]
+  partners: [String!]
+  password: String
+  profile: Profile!
+  restoredAt: DateTime
+  restoredBy: String
+  roles: [String!]!
+  tags: [String!]
+  updatedAt: DateTime
+  updatedBy: String
+  username: String!
 }

@@ -4,6 +4,8 @@ import { Injectable } from '@nestjs/common';
 import { MongoProvider } from './mongo.provider';
 import { User } from 'user/entities/user.entity';
 import * as pluralize from 'pluralize';
+import { Grant } from 'grant/entities/grant.entity';
+import { grant } from './collections/grant.collection';
 
 interface MongoCommandOptions {
   collection?: string[] | true;
@@ -40,17 +42,24 @@ export class MongoService implements CommandRunner {
 
       const db = this.mongoProvider.db(process.env.MONGO_DB);
 
-      // users collection
-      const usersCollectionName = pluralize(User.name.toLowerCase());
-      if (cond(usersCollectionName)) {
-        const collection = db.collection<User>(usersCollectionName);
-        await collection.insertMany(user);
+      const update = async (entity: any, data: any[], dropFirst: boolean) => {
+        const collectionName = pluralize(entity.name.toLowerCase());
+        if (cond(collectionName)) {
+          if (dropFirst) await db.dropCollection(collectionName);
 
-        console.log(
-          '\x1b[32m%s\x1b[0m',
-          `Inserted ${user.length} documents into the ${usersCollectionName} collection`,
-        );
-      }
+          const collection = db.collection<User>(collectionName);
+          await collection.insertMany(data);
+
+          console.log(
+            '\x1b[32m%s\x1b[0m',
+            `Inserted ${data.length} documents into the ${collectionName} collection`,
+          );
+        }
+      };
+
+      // Update collections
+      await update(User, user, false);
+      await update(Grant, grant, true);
     } catch (error) {
       console.log(error);
     } finally {

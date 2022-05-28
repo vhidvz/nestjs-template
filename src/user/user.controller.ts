@@ -6,7 +6,7 @@ import {
   Patch,
   Param,
   Delete,
-  Head,
+  Put,
 } from '@nestjs/common';
 import { Filter } from 'common/decorators/restful-filter.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
@@ -53,7 +53,7 @@ export class UserController {
     return await this.userService.delete(id);
   }
 
-  @Head(':id')
+  @Put(':id')
   public async restore(@Param('id') id: string): Promise<User> {
     return await this.userService.restore(id);
   }

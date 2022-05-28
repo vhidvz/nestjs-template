@@ -1,8 +1,11 @@
+import { grant } from 'command/database/mongo/collections/grant.collection';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
 import { GraphQLFilter } from './common/scalars/filter.scalar';
+import { AuthorityModule } from './authority/authority.module';
 import { DatabaseCommand } from 'command/database';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
+import { GrantModule } from 'grant/grant.module';
 import { AuthModule } from './auth/auth.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { UserModule } from './user/user.module';
@@ -26,12 +29,15 @@ import 'reflect-metadata';
       },
       transformAutoSchemaFile: true,
       driver: ApolloDriver,
+      sortSchema: true,
       playground: true,
       debug: true,
       cors: true,
     }),
     AuthModule,
     UserModule,
+    GrantModule,
+    AuthorityModule.register(grant),
     // command
     DatabaseCommand,
   ],
