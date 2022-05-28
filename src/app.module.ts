@@ -1,16 +1,17 @@
+import { DatabaseCommand, MongoDatabaseCommand } from 'command/database';
 import { ApolloDriver, ApolloDriverConfig } from '@nestjs/apollo';
-import { GraphQLFilter } from 'common/scalars/filter.scalar';
+import { GraphQLFilter } from './common/scalars/filter.scalar';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
+import { AuthModule } from './auth/auth.module';
 import { GraphQLModule } from '@nestjs/graphql';
 import { UserModule } from './user/user.module';
+import { MONGO_CONFIG } from './common/configs';
 import { ConfigModule } from '@nestjs/config';
-import { MONGO_CONFIG } from 'common/configs';
 import GraphQLJSON from 'graphql-type-json';
 import { AppService } from './app.service';
 import { Module } from '@nestjs/common';
 import { join } from 'path';
-import { AuthModule } from './auth/auth.module';
 import 'reflect-metadata';
 
 @Module({
@@ -26,8 +27,11 @@ import 'reflect-metadata';
       debug: true,
       cors: true,
     }),
-    UserModule,
     AuthModule,
+    UserModule,
+    // command
+    DatabaseCommand,
+    MongoDatabaseCommand,
   ],
   controllers: [AppController],
   providers: [AppService],

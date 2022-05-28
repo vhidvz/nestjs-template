@@ -1,5 +1,5 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
-import { Filter } from 'common/decorators/graphql.filter.decorator';
+import { Filter } from 'common/decorators/graphql-filter.decorator';
 import { GraphQLFilter } from 'common/scalars/filter.scalar';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -17,12 +17,16 @@ export class UserResolver {
   }
 
   @Mutation(() => User, { name: 'createUser' })
-  public async create(@Args('createUserDto') createUserDto: CreateUserDto): Promise<User> {
+  public async create(
+    @Args('createUserDto') createUserDto: CreateUserDto,
+  ): Promise<User> {
     return await this.userService.create(createUserDto);
   }
 
   @Query(() => [User], { name: 'findUser' })
-  public async find(@Args('filter', { type: () => GraphQLFilter }) filter: any): Promise<User[]> {
+  public async find(
+    @Args('filter', { type: () => GraphQLFilter }) filter: any,
+  ): Promise<User[]> {
     return await this.userService.find(filter);
   }
 
@@ -32,7 +36,9 @@ export class UserResolver {
   }
 
   @Mutation(() => User, { name: 'updateUser' })
-  public async update(@Args('updateUserDto') updateUserDto: UpdateUserDto): Promise<User> {
+  public async update(
+    @Args('updateUserDto') updateUserDto: UpdateUserDto,
+  ): Promise<User> {
     return await this.userService.update(updateUserDto._id, updateUserDto);
   }
 

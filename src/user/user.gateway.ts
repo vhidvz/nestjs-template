@@ -1,4 +1,8 @@
-import { WebSocketGateway, SubscribeMessage, MessageBody } from '@nestjs/websockets';
+import {
+  WebSocketGateway,
+  SubscribeMessage,
+  MessageBody,
+} from '@nestjs/websockets';
 import { Filter } from 'common/decorators/socket-filter.decorator';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
@@ -15,7 +19,9 @@ export class UserGateway {
   }
 
   @SubscribeMessage('createUser')
-  public async create(@MessageBody() createUserDto: CreateUserDto): Promise<User> {
+  public async create(
+    @MessageBody() createUserDto: CreateUserDto,
+  ): Promise<User> {
     return await this.userService.create(createUserDto);
   }
 
@@ -30,7 +36,9 @@ export class UserGateway {
   }
 
   @SubscribeMessage('updateUser')
-  public async update(@MessageBody() updateUserDto: UpdateUserDto): Promise<User> {
+  public async update(
+    @MessageBody() updateUserDto: UpdateUserDto,
+  ): Promise<User> {
     return await this.userService.update(updateUserDto._id, updateUserDto);
   }
 

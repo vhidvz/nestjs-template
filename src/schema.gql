@@ -49,8 +49,8 @@ scalar DateTime
 
 type Query {
   countUser: Int!
-  users(filter: Filter!): [User!]!
-  user(id: String!): User!
+  findUser(filter: Filter!): [User!]!
+  findUserById(id: String!): User!
 }
 
 """A simple Filter parser"""

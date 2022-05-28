@@ -2,6 +2,7 @@ import { Field, GraphQLISODateTime, ID, InterfaceType } from '@nestjs/graphql';
 import { Prop, Schema } from '@nestjs/mongoose';
 import { ApiProperty, ApiPropertyOptional } from '@nestjs/swagger';
 import { Exclude } from 'class-transformer';
+import { ObjectId } from 'mongodb';
 import mongoose from 'mongoose';
 
 @Schema()
@@ -11,7 +12,7 @@ export class BaseEntity {
   @Prop({ required: false, type: mongoose.Schema.Types.ObjectId })
   @ApiProperty({ type: String, readOnly: true, required: true, format: 'uuid' })
   @Field(() => ID, { nullable: true })
-  public _id?: string;
+  public _id?: string | ObjectId;
 
   @Prop({ required: false, type: [String] })
   @ApiPropertyOptional({ type: [String] })

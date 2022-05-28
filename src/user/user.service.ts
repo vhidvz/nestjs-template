@@ -28,7 +28,10 @@ export class UserService {
     return await this.userRepository.findById(id, projection);
   }
 
-  public async update(id: string, updateUserDto: UpdateUserDto): Promise<UserDocument> {
+  public async update(
+    id: string,
+    updateUserDto: UpdateUserDto,
+  ): Promise<UserDocument> {
     return await this.userRepository.update(id, updateUserDto);
   }
 
