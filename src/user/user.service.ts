@@ -1,5 +1,6 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { hashPassword } from 'common/helpers/argon2.helper';
+import { FilterQuery, ProjectionType, QueryOptions } from 'mongoose';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDocument } from './entities/user.entity';
@@ -30,8 +31,12 @@ export class UserService {
     return await this.userRepository.find(filter);
   }
 
-  public async findOne(filter: any, projection?: any): Promise<UserDocument> {
-    return await this.userRepository.findOne(filter, projection);
+  public async findOne(
+    filter: FilterQuery<UserDocument>,
+    projection?: ProjectionType<UserDocument>,
+    options?: QueryOptions<UserDocument>,
+  ): Promise<UserDocument> {
+    return await this.userRepository.findOne(filter, projection, options);
   }
 
   public async findById(id: string, projection?: any): Promise<UserDocument> {

@@ -6,7 +6,7 @@ import { JwtModule } from '@nestjs/jwt';
 import { User, UserSchema } from 'user/entities/user.entity';
 import { MongooseModule } from '@nestjs/mongoose';
 import { MONGO_CONFIG } from 'common/configs';
-import { RegisterUserDto } from './dto';
+import { LoginUserRepDto, RegisterUserDto } from './dto';
 import { HttpException } from '@nestjs/common';
 
 describe('AuthService', () => {
@@ -42,5 +42,33 @@ describe('AuthService', () => {
     expect(
       async () => await service.register(registerUserDto),
     ).rejects.toThrowError(expect.any(HttpException));
+  });
+
+  it('should register a user', async () => {
+    const registerUserDto: RegisterUserDto = {
+      username: 'test',
+      password: 'test',
+      profile: {
+        email: 'user@example.com',
+      },
+    };
+
+    const user = await service.register(registerUserDto);
+    expect(user._id).toBeDefined();
+  });
+
+  it('should login a user', async () => {
+    const loginUserDto: LoginUserRepDto = {
+      username: 'test',
+      password: 'test',
+    };
+
+    const user = await service.validateUser(loginUserDto);
+    expect(user).toBeDefined();
+    expect(user).not.toStrictEqual(
+      expect.objectContaining({
+        password: expect.any(String),
+      }),
+    );
   });
 });

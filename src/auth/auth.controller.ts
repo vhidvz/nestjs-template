@@ -12,6 +12,8 @@ import { AuthService } from './auth.service';
 import { RegisterUserDto } from './dto/register-user.dto';
 import { JwtAuthGuard } from './guards/jwt-auth.guard';
 import { LocalAuthGuard } from './guards/local-auth.guard';
+import { CurrentUser } from 'common/decorators/restful-user.decorator';
+import { LoginUserResDto } from './dto';
 
 @ApiTags('auth')
 @Controller('auth')
@@ -25,10 +27,12 @@ export class AuthController {
     return await this.authService.register(registerUserDto);
   }
 
-  @UseGuards(LocalAuthGuard)
   @Post('login')
-  async login(@Request() req) {
-    return this.authService.login(req.user);
+  @UseGuards(LocalAuthGuard)
+  public async login(
+    @CurrentUser() user: Omit<User, 'password'>,
+  ): Promise<LoginUserResDto> {
+    return await this.authService.login(user);
   }
 
   @UseGuards(JwtAuthGuard)

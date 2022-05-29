@@ -1,9 +1,9 @@
+import { FilterQuery, Model, ProjectionType, QueryOptions } from 'mongoose';
 import { User, UserDocument } from './entities/user.entity';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { CreateUserDto } from './dto/create-user.dto';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
-import { Model } from 'mongoose';
 
 @Injectable()
 export class UserRepository {
@@ -26,8 +26,12 @@ export class UserRepository {
     return await this.userModel.find(filter).exec();
   }
 
-  public async findOne(filter: any, projection?: any): Promise<UserDocument> {
-    return await this.userModel.findOne(filter, projection).exec();
+  public async findOne(
+    filter: FilterQuery<UserDocument>,
+    projection?: ProjectionType<UserDocument>,
+    options?: QueryOptions<UserDocument>,
+  ): Promise<UserDocument> {
+    return await this.userModel.findOne(filter, projection, options).exec();
   }
 
   public async findById(id: string, projection?: any): Promise<UserDocument> {

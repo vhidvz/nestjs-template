@@ -19,17 +19,22 @@ import { Document } from 'mongoose';
 export class Profile {
   @IsString()
   @Field(() => String)
-  @Prop({ required: true, type: String })
+  @Prop({ type: String })
   name?: string;
 
   @IsEmail()
   @Field(() => String, { nullable: true })
-  @Prop({ required: false, type: String, validator: [IsEmail] })
+  @Prop({ required: false, type: String, unique: true, validator: [IsEmail] })
   email?: string;
 
   @IsMobilePhone('fa-IR')
   @Field(() => String, { nullable: true })
-  @Prop({ required: false, type: String, validator: [IsMobilePhone('fa-IR')] })
+  @Prop({
+    required: false,
+    type: String,
+    unique: true,
+    validator: [IsMobilePhone('fa-IR')],
+  })
   phone?: string;
 
   constructor(profile: Partial<Profile>) {
@@ -49,7 +54,7 @@ export class User extends BaseEntity {
   @IsString()
   @IsNotEmpty()
   @Field(() => String)
-  @Prop({ required: true, type: String })
+  @Prop({ required: true, type: String, unique: true })
   public username: string;
 
   @Exclude()

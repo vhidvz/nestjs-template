@@ -9,7 +9,11 @@ import mongoose from 'mongoose';
 @Exclude()
 @InterfaceType()
 export class BaseEntity {
-  @Prop({ required: false, type: mongoose.Schema.Types.ObjectId })
+  @Prop({
+    required: false,
+    type: mongoose.Schema.Types.ObjectId,
+    default: () => new ObjectId(),
+  })
   @ApiProperty({ type: String, readOnly: true, required: true, format: 'uuid' })
   @Field(() => ID, { nullable: true })
   public _id?: string | ObjectId;
