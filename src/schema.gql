@@ -3,7 +3,6 @@
 # ------------------------------------------------------
 
 enum Action {
-  Any
   Create
   CreateGroup
   CreateOwn
@@ -28,6 +27,7 @@ enum Action {
   UpdateGroup
   UpdateOwn
   UpdateShared
+  any
 }
 
 interface BaseEntity {
@@ -136,9 +136,9 @@ type Query {
 }
 
 enum Resource {
-  All
-  Grants
-  Users
+  Grant
+  User
+  all
 }
 
 enum Role {

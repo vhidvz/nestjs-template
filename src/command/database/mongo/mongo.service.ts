@@ -1,11 +1,11 @@
+import { Grant, GrantDocument } from 'grant/entities/grant.entity';
 import { Command, CommandRunner, Option } from 'nest-commander';
-import { user } from './collections/user.collection';
-import { Injectable } from '@nestjs/common';
-import { MongoProvider } from './mongo.provider';
-import { User } from 'user/entities/user.entity';
-import * as pluralize from 'pluralize';
-import { Grant } from 'grant/entities/grant.entity';
+import { User, UserDocument } from 'user/entities/user.entity';
 import { grant } from './collections/grant.collection';
+import { user } from './collections/user.collection';
+import { InjectModel } from '@nestjs/mongoose';
+import { Injectable } from '@nestjs/common';
+import { Model } from 'mongoose';
 
 interface MongoCommandOptions {
   collection?: string[] | true;
@@ -19,7 +19,10 @@ interface MongoCommandOptions {
   description: 'MongoDB commands',
 })
 export class MongoService implements CommandRunner {
-  constructor(private readonly mongoProvider: MongoProvider) {}
+  constructor(
+    @InjectModel(User.name) private readonly userModel: Model<UserDocument>,
+    @InjectModel(Grant.name) private readonly grantModel: Model<GrantDocument>,
+  ) {}
 
   public async run(
     passedParams: string[],
@@ -37,34 +40,23 @@ export class MongoService implements CommandRunner {
         options?.collection.includes(collection));
 
     try {
-      console.log(process.env);
-      await this.mongoProvider.connect();
-      console.log('Connected successfully to server');
-
-      const db = this.mongoProvider.db(process.env.MONGO_DB);
-
-      const update = async (entity: any, data: any[], dropFirst: boolean) => {
-        const collectionName = pluralize(entity.name.toLowerCase());
-        if (cond(collectionName)) {
-          if (dropFirst) await db.dropCollection(collectionName);
-
-          const collection = db.collection(collectionName);
-          await collection.insertMany(data);
+      const update = async (model: Model<any>, data: any[]) => {
+        if (cond(model.collection.name)) {
+          await model.insertMany(data);
 
           console.log(
             '\x1b[32m%s\x1b[0m',
-            `Inserted ${data.length} documents into the ${collectionName} collection`,
+            `Inserted ${data.length} documents into the ${model.collection.name} collection`,
           );
         }
       };
 
-      // Update collections
-      await update(User, user, false);
-      await update(Grant, grant, true);
+      await update(this.userModel, user);
+      await update(this.grantModel, grant);
     } catch (error) {
       console.log(error);
     } finally {
-      this.mongoProvider.close();
+      // this.mongoProvider.close();
       console.log('Mongo seeded!');
     }
   }

@@ -433,14 +433,6 @@
   dependencies:
     lodash "^4.17.15"
 
-"@graphql-tools/merge@8.2.12":
-  version "8.2.12"
-  resolved "https://registry.npmjs.org/@graphql-tools/merge/-/merge-8.2.12.tgz"
-  integrity sha512-0b07QoAfINuuoJ59gupOBe5gWy+WVjEO9ZbbpPD98nuLn5aNxI12wj1SvQlACFE8cVAPiRxrO+03QjyXXPDu8A==
-  dependencies:
-    "@graphql-tools/utils" "8.6.11"
-    tslib "~2.4.0"
-
 "@graphql-tools/merge@8.2.13":
   version "8.2.13"
   resolved "https://registry.npmjs.org/@graphql-tools/merge/-/merge-8.2.13.tgz"
@@ -459,16 +451,6 @@
     fast-json-stable-stringify "^2.1.0"
     tslib "~2.4.0"
 
-"@graphql-tools/schema@8.3.12":
-  version "8.3.12"
-  resolved "https://registry.npmjs.org/@graphql-tools/schema/-/schema-8.3.12.tgz"
-  integrity sha512-X8tjAIhf7svAXAH1RRlm6J1mqG2YxCGYffp8RytbKobXqZDgj5VL50Lm5xSzvv/uzkFO4iNTpV5cm5nARN7odQ==
-  dependencies:
-    "@graphql-tools/merge" "8.2.12"
-    "@graphql-tools/utils" "8.6.11"
-    tslib "~2.4.0"
-    value-or-promise "1.0.11"
-
 "@graphql-tools/schema@8.3.13", "@graphql-tools/schema@^8.0.0":
   version "8.3.13"
   resolved "https://registry.npmjs.org/@graphql-tools/schema/-/schema-8.3.13.tgz"
@@ -478,13 +460,6 @@
     "@graphql-tools/utils" "8.6.12"
     tslib "~2.4.0"
     value-or-promise "1.0.11"
-
-"@graphql-tools/utils@8.6.11":
-  version "8.6.11"
-  resolved "https://registry.npmjs.org/@graphql-tools/utils/-/utils-8.6.11.tgz"
-  integrity sha512-Ebr2r9uzp+FwiH0oCKXrsi36ON9jNRGDN4krAhoJZgtM2iJredX2NaIJTtPIPwzqiizC0K2NdmI6VfTkGBPGjA==
-  dependencies:
-    tslib "~2.4.0"
 
 "@graphql-tools/utils@8.6.12":
   version "8.6.12"
@@ -783,10 +758,10 @@
     semver "^7.3.5"
     tar "^6.1.11"
 
-"@nestjs/apollo@^10.0.12":
-  version "10.0.12"
-  resolved "https://registry.npmjs.org/@nestjs/apollo/-/apollo-10.0.12.tgz"
-  integrity sha512-aJLinmY5icP0pXkzNjOiCfljkQML4OImuvTR7+dhy3IMSxZTbvc9jllDSjzPRL8auBLM+SX2oyg6XFz5vGLVvg==
+"@nestjs/apollo@^10.0.13":
+  version "10.0.13"
+  resolved "https://registry.yarnpkg.com/@nestjs/apollo/-/apollo-10.0.13.tgz#0726559f9d2f03d3003638d1dbf0b8f25aa72621"
+  integrity sha512-XSlPOrPhNgnZHcSnbbx5GSP2+CMW15ueYu0/5/u2F9Cid/2cfg+xJ9uiWZg2QGH6wQcd5YlK3vNu+X/QhsLH2g==
   dependencies:
     iterall "1.3.0"
     lodash.omit "4.5.0"
@@ -853,14 +828,14 @@
     tslib "2.4.0"
     uuid "8.3.2"
 
-"@nestjs/graphql@^10.0.12":
-  version "10.0.12"
-  resolved "https://registry.npmjs.org/@nestjs/graphql/-/graphql-10.0.12.tgz"
-  integrity sha512-1BCHirF5cE1petaqw/hbzuMdU6JNOiYB50NDodTaw0F+/s7HKf+6YZt88jH2oQHj70iHCgNlDS0I1S3f0owxRQ==
+"@nestjs/graphql@^10.0.13":
+  version "10.0.13"
+  resolved "https://registry.yarnpkg.com/@nestjs/graphql/-/graphql-10.0.13.tgz#da415cf21da00f320f1a48e10594bb3d501da9c2"
+  integrity sha512-jTC055SMacsk1me7p49KHq+6IbOT7QNyI0sBeQkvsHilhucJVTIxzNF9vwm7Rc0zsvhJ4DL8Awm7SKpzaa0nGA==
   dependencies:
-    "@graphql-tools/merge" "8.2.12"
-    "@graphql-tools/schema" "8.3.12"
-    "@graphql-tools/utils" "8.6.11"
+    "@graphql-tools/merge" "8.2.13"
+    "@graphql-tools/schema" "8.3.13"
+    "@graphql-tools/utils" "8.6.12"
     "@nestjs/mapped-types" "1.0.1"
     chokidar "3.5.3"
     fast-glob "3.2.11"
@@ -871,7 +846,7 @@
     subscriptions-transport-ws "0.11.0"
     tslib "2.4.0"
     uuid "8.3.2"
-    ws "8.5.0"
+    ws "8.7.0"
 
 "@nestjs/jwt@^8.0.1":
   version "8.0.1"
@@ -1264,7 +1239,7 @@
   resolved "https://registry.npmjs.org/@types/mime/-/mime-1.3.2.tgz"
   integrity sha512-YATxVxgRqNH6nHEIsvg6k2Boc1JHI9ZbH5iWFFv/MTkchz3b1ieGDa5T0a9RznNdI0KhVbdbWSN+KWWrQZRxTw==
 
-"@types/node@*", "@types/node@>=10.0.0", "@types/node@^17.0.35":
+"@types/node@*", "@types/node@>=10.0.0":
   version "17.0.35"
   resolved "https://registry.npmjs.org/@types/node/-/node-17.0.35.tgz"
   integrity sha512-vu1SrqBjbbZ3J6vwY17jBs8Sr/BKA+/a/WtjRG+whKg1iuLFOosq872EXS0eXWILdO36DHQQeku/ZcL6hz2fpg==
@@ -1273,6 +1248,11 @@
   version "10.17.60"
   resolved "https://registry.npmjs.org/@types/node/-/node-10.17.60.tgz"
   integrity sha512-F0KIgDJfy2nA3zMLmWGKxcH2ZVEtCZXHHdOQs2gSaQ27+lNeEfGxzkIw90aXswATX7AZ33tahPbzy6KAfUreVw==
+
+"@types/node@^17.0.36":
+  version "17.0.36"
+  resolved "https://registry.yarnpkg.com/@types/node/-/node-17.0.36.tgz#c0d5f2fe76b47b63e0e0efc3d2049a9970d68794"
+  integrity sha512-V3orv+ggDsWVHP99K3JlwtH20R7J4IhI1Kksgc+64q5VxgfRkQG8Ws3MFm/FZOKDYGy9feGFlZ70/HpCNe9QaA==
 
 "@types/parse-json@^4.0.0":
   version "4.0.0"
@@ -6021,10 +6001,10 @@ write-file-atomic@^4.0.1:
     imurmurhash "^0.1.4"
     signal-exit "^3.0.7"
 
-ws@8.5.0:
-  version "8.5.0"
-  resolved "https://registry.npmjs.org/ws/-/ws-8.5.0.tgz"
-  integrity sha512-BWX0SWVgLPzYwF8lTzEy1egjhS4S4OEAHfsO8o65WOVsrnSRGaSiUaa9e0ggGlkMTtBlmOpEXiie9RUcBO86qg==
+ws@8.7.0:
+  version "8.7.0"
+  resolved "https://registry.yarnpkg.com/ws/-/ws-8.7.0.tgz#eaf9d874b433aa00c0e0d8752532444875db3957"
+  integrity sha512-c2gsP0PRwcLFzUiA8Mkr37/MI7ilIlHQxaEAtd0uNMbVMoy8puJyafRlm0bV9MbGSabUPeLrRRaqIBcFcA2Pqg==
 
 "ws@^5.2.0 || ^6.0.0 || ^7.0.0":
   version "7.5.7"

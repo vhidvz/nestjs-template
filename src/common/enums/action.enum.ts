@@ -1,7 +1,7 @@
 import { registerEnumType } from '@nestjs/graphql';
 
 export enum Action {
-  Any = 'any',
+  any = 'any',
 
   Create = 'create',
   Read = 'read',

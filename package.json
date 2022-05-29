@@ -25,11 +25,11 @@
     "mongo:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register src/command.ts mongo"
   },
   "dependencies": {
-    "@nestjs/apollo": "^10.0.12",
+    "@nestjs/apollo": "^10.0.13",
     "@nestjs/common": "^8.4.5",
     "@nestjs/config": "^2.0.1",
     "@nestjs/core": "^8.4.5",
-    "@nestjs/graphql": "^10.0.12",
+    "@nestjs/graphql": "^10.0.13",
     "@nestjs/jwt": "^8.0.1",
     "@nestjs/mapped-types": "1.0.1",
     "@nestjs/microservices": "^8.4.5",
@@ -67,7 +67,7 @@
     "@nestjs/testing": "^8.4.5",
     "@types/express": "^4.17.13",
     "@types/jest": "27.5.1",
-    "@types/node": "^17.0.35",
+    "@types/node": "^17.0.36",
     "@types/passport-jwt": "^3.0.6",
     "@types/passport-local": "^1.0.34",
     "@types/pluralize": "^0.0.29",

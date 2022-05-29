@@ -1,10 +1,10 @@
 import { registerEnumType } from '@nestjs/graphql';
 
 export enum Resource {
-  All = 'all',
+  all = 'all',
 
-  Users = 'users',
-  Grants = 'grants',
+  User = 'User',
+  Grant = 'Grant',
 }
 
 registerEnumType(Resource, {

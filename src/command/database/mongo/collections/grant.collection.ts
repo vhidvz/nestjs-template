@@ -4,8 +4,8 @@ import { Grant } from 'grant/entities/grant.entity';
 export const grant: Grant[] = [
   {
     role: Role.System,
-    action: Action.Any,
-    object: Resource.All,
+    action: Action.any,
+    object: Resource.all,
     createdBy: Role.System,
   },
 ];
