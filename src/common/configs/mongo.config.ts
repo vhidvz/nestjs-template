@@ -14,3 +14,15 @@ export function MONGO_CONFIG(): string {
 
   return uri;
 }
+
+export const MONGO_OPTION = (): {
+  useNewUrlParser: boolean;
+  useUnifiedTopology: boolean;
+  useFindAndModify: boolean;
+  useCreateIndex: boolean;
+} => ({
+  useNewUrlParser: true,
+  useUnifiedTopology: true,
+  useFindAndModify: false,
+  useCreateIndex: true,
+});

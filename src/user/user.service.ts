@@ -1,4 +1,5 @@
-import { Injectable } from '@nestjs/common';
+import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { hashPassword } from 'common/helpers/argon2.helper';
 import { CreateUserDto } from './dto/create-user.dto';
 import { UpdateUserDto } from './dto/update-user.dto';
 import { UserDocument } from './entities/user.entity';
@@ -13,6 +14,15 @@ export class UserService {
   }
 
   public async create(createUserDto: CreateUserDto): Promise<UserDocument> {
+    if (!createUserDto.profile.email && !createUserDto.profile.phone)
+      throw new HttpException(
+        'profile with one of the email or phone property is required',
+        HttpStatus.BAD_REQUEST,
+      );
+
+    if (createUserDto.password)
+      createUserDto.password = await hashPassword(createUserDto.password);
+
     return await this.userRepository.create(createUserDto);
   }
 

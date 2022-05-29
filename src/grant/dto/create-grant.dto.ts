@@ -1,7 +1,15 @@
-import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 import { Field, InputType, Int } from '@nestjs/graphql';
 import { Grant, Time } from 'grant/entities/grant.entity';
 import { Type } from 'class-transformer';
+import { Role } from 'common/enums/role.enum';
+import { Action, Resource } from 'common/enums';
 
 @InputType()
 export class CreateTimeDto implements Time {
@@ -23,20 +31,20 @@ export class CreateGrantDto implements Grant {
   @Field(() => String)
   public createdBy: string;
 
-  @IsString()
   @IsNotEmpty()
-  @Field(() => String)
-  role: string;
+  @IsEnum(Role)
+  @Field(() => Role)
+  role: Role;
 
-  @IsString()
   @IsNotEmpty()
-  @Field(() => String)
-  action: string;
+  @IsEnum(Action)
+  @Field(() => Action)
+  action: Action;
 
-  @IsString()
   @IsNotEmpty()
-  @Field(() => String)
-  object: string;
+  @IsEnum(Resource)
+  @Field(() => Resource)
+  object: Resource;
 
   @Type(() => String)
   @Field(() => [String])

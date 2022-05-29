@@ -20,7 +20,9 @@
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
     "test:e2e": "jest --config ./test/jest-e2e.json",
     "db:seed": "node -r tsconfig-paths/register -r ts-node/register src/command.ts db seed",
-    "mongo:seed": "node -r tsconfig-paths/register -r ts-node/register src/command.ts mongo seed"
+    "db:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register src/command.ts db",
+    "mongo:seed": "node -r tsconfig-paths/register -r ts-node/register src/command.ts mongo seed",
+    "mongo:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register src/command.ts mongo"
   },
   "dependencies": {
     "@nestjs/apollo": "^10.0.12",
@@ -59,6 +61,7 @@
     "swagger-ui-express": "^4.4.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^7.1.0",
     "@nestjs/cli": "^8.2.6",
     "@nestjs/schematics": "^8.0.11",
     "@nestjs/testing": "^8.4.5",

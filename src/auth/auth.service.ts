@@ -1,6 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
+import { Role } from 'common/enums/role.enum';
+import { UserDocument } from 'user/entities/user.entity';
 import { UserService } from 'user/user.service';
+import { RegisterUserDto } from './dto/register-user.dto';
 
 @Injectable()
 export class AuthService {
@@ -24,5 +27,15 @@ export class AuthService {
     return {
       access_token: this.jwtService.sign(payload),
     };
+  }
+
+  public async register(
+    registerUserDto: RegisterUserDto,
+  ): Promise<UserDocument> {
+    return await this.userService.create({
+      ...registerUserDto,
+      roles: [Role.Guest],
+      createdBy: Role.System,
+    });
   }
 }

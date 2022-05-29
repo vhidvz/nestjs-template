@@ -2,6 +2,34 @@
 # THIS FILE WAS AUTOMATICALLY GENERATED (DO NOT MODIFY)
 # ------------------------------------------------------
 
+enum Action {
+  Any
+  Create
+  CreateGroup
+  CreateOwn
+  CreateShared
+  Delete
+  DeleteGroup
+  DeleteOwn
+  DeleteShared
+  Destroy
+  DestroyGroup
+  DestroyOwn
+  DestroyShared
+  Read
+  ReadGroup
+  ReadOwn
+  ReadShared
+  Restore
+  RestoreGroup
+  RestoreOwn
+  RestoreShared
+  Update
+  UpdateGroup
+  UpdateOwn
+  UpdateShared
+}
+
 interface BaseEntity {
   _id: ID
   createdAt: DateTime
@@ -18,13 +46,13 @@ interface BaseEntity {
 }
 
 input CreateGrantDto {
-  action: String!
+  action: Action!
   createdBy: String!
   field: [String!]!
   filter: [String!]!
   location: [String!]!
-  object: String!
-  role: String!
+  object: Resource!
+  role: Role!
   time: [CreateTimeDto!]
 }
 
@@ -41,10 +69,12 @@ input CreateTimeDto {
 
 input CreateUserDto {
   _id: ID
+  createdBy: String!
   groups: [String!]
   partners: [String!]
   password: String
   profile: CreateProfileDto!
+  roles: [Role!]
   tags: [String!]
   username: String!
 }
@@ -59,7 +89,7 @@ scalar Filter
 
 type Grant implements BaseEntity {
   _id: ID
-  action: String!
+  action: Action!
   createdAt: DateTime
   createdBy: String!
   deletedAt: DateTime
@@ -68,11 +98,11 @@ type Grant implements BaseEntity {
   filter: [String!]!
   groups: [String!]
   location: [String!]!
-  object: String!
+  object: Resource!
   partners: [String!]
   restoredAt: DateTime
   restoredBy: String
-  role: String!
+  role: Role!
   tags: [String!]
   time: [Time!]
   updatedAt: DateTime
@@ -105,6 +135,19 @@ type Query {
   findUserById(id: String!): User!
 }
 
+enum Resource {
+  All
+  Grants
+  Users
+}
+
+enum Role {
+  Admin
+  Guest
+  System
+  User
+}
+
 type Time {
   cron_exp: String!
   duration: Int!
@@ -112,22 +155,24 @@ type Time {
 
 input UpdateGrantDto {
   _id: ID!
-  action: String!
+  action: Action!
   createdBy: String!
   field: [String!]!
   filter: [String!]!
   location: [String!]!
-  object: String!
-  role: String!
+  object: Resource!
+  role: Role!
   time: [CreateTimeDto!]
 }
 
 input UpdateUserDto {
   _id: ID!
+  createdBy: String!
   groups: [String!]
   partners: [String!]
   password: String
   profile: CreateProfileDto!
+  roles: [Role!]
   tags: [String!]
   username: String!
 }
@@ -144,7 +189,7 @@ type User implements BaseEntity {
   profile: Profile!
   restoredAt: DateTime
   restoredBy: String
-  roles: [String!]!
+  roles: [Role!]
   tags: [String!]
   updatedAt: DateTime
   updatedBy: String

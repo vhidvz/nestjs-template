@@ -37,6 +37,7 @@ export class MongoService implements CommandRunner {
         options?.collection.includes(collection));
 
     try {
+      console.log(process.env);
       await this.mongoProvider.connect();
       console.log('Connected successfully to server');
 
@@ -47,7 +48,7 @@ export class MongoService implements CommandRunner {
         if (cond(collectionName)) {
           if (dropFirst) await db.dropCollection(collectionName);
 
-          const collection = db.collection<User>(collectionName);
+          const collection = db.collection(collectionName);
           await collection.insertMany(data);
 
           console.log(

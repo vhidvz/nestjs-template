@@ -1,5 +1,6 @@
 import { User } from 'user/entities/user.entity';
 import { ObjectId } from 'mongodb';
+import { Role } from 'common/enums/role.enum';
 
 export const user: User[] = [
   {
@@ -9,8 +10,9 @@ export const user: User[] = [
     password: '$2b$10$yG4q4yQU7LZEAF1ao44jlejh5RAwKbHdbIjJFaTcMbIXxMBEv8NLO',
     profile: {
       name: 'system',
+      email: 'sysadmin@admin.sys',
     },
-    roles: ['system'],
+    roles: [Role.System],
     createdBy: 'system',
   },
 ];

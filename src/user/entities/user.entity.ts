@@ -2,18 +2,25 @@ import { Field, ObjectType } from '@nestjs/graphql';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { ApiHideProperty } from '@nestjs/swagger';
 import { Exclude, Type } from 'class-transformer';
-import { IsEmail, IsMobilePhone, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsEmail,
+  IsEnum,
+  IsMobilePhone,
+  IsNotEmpty,
+  IsString,
+} from 'class-validator';
 import { BaseEntity } from 'common/entity';
+import { Role } from 'common/enums/role.enum';
 import { Document } from 'mongoose';
 
 @Schema()
 @ObjectType()
 export class Profile {
   @IsString()
-  @IsNotEmpty()
   @Field(() => String)
   @Prop({ required: true, type: String })
-  name: string;
+  name?: string;
 
   @IsEmail()
   @Field(() => String, { nullable: true })
@@ -51,10 +58,11 @@ export class User extends BaseEntity {
   @Prop({ required: false, type: String })
   public password?: string;
 
-  @Exclude()
-  @Field(() => [String])
-  @Prop({ required: true, type: [String] })
-  public roles: string[];
+  @IsArray()
+  @IsEnum(Role)
+  @Field(() => [Role], { nullable: true })
+  @Prop({ required: true, type: [String], enum: Role })
+  public roles?: Role[];
 
   constructor(user: Partial<User>) {
     super(user);

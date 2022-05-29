@@ -1,15 +1,22 @@
-import { IsEmail, IsMobilePhone, IsNotEmpty, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsEmail,
+  IsEnum,
+  IsMobilePhone,
+  IsNotEmpty,
+  IsString,
+} from 'class-validator';
 import { Profile, User } from 'user/entities/user.entity';
 import { Field, ID, InputType } from '@nestjs/graphql';
 import { Exclude, Type } from 'class-transformer';
 import { ObjectId } from 'bson';
+import { Role } from 'common/enums/role.enum';
 
 @InputType()
 export class CreateProfileDto implements Profile {
   @IsString()
-  @IsNotEmpty()
   @Field(() => String)
-  name: string;
+  name?: string;
 
   @IsEmail()
   @Field(() => String, { nullable: true })
@@ -21,16 +28,22 @@ export class CreateProfileDto implements Profile {
 }
 
 @InputType()
-export class CreateUserDto implements Omit<User, 'roles' | 'createdBy'> {
+export class CreateUserDto implements User {
   @Field(() => ID, { nullable: true })
   public _id?: string | ObjectId;
 
+  @IsArray()
+  @IsString()
   @Field(() => [String], { nullable: true })
   public tags?: string[];
 
+  @IsArray()
+  @IsString()
   @Field(() => [String], { nullable: true })
   public groups?: string[];
 
+  @IsArray()
+  @IsString()
   @Field(() => [String], { nullable: true })
   public partners?: string[];
 
@@ -44,7 +57,16 @@ export class CreateUserDto implements Omit<User, 'roles' | 'createdBy'> {
   @Field(() => String)
   public username: string;
 
+  @IsArray()
+  @IsEnum(Role)
+  @Field(() => [Role], { nullable: true })
+  public roles?: Role[];
+
   @Exclude()
   @Field(() => String, { nullable: true })
   public password?: string;
+
+  @Exclude()
+  @Field(() => String)
+  public createdBy: string;
 }

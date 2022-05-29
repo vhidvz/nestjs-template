@@ -1,6 +1,13 @@
-import { IsArray, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsArray,
+  IsEnum,
+  IsNotEmpty,
+  IsNumber,
+  IsString,
+} from 'class-validator';
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
 import { Field, Int, ObjectType } from '@nestjs/graphql';
+import { Action, Resource, Role } from 'common/enums';
 import { BaseEntity } from 'common/entity';
 import { Type } from 'class-transformer';
 import { AccessAbility } from 'abacl';
@@ -29,23 +36,23 @@ export class Time {
 @Schema()
 @ObjectType({ implements: BaseEntity })
 export class Grant extends BaseEntity implements AccessAbility {
-  @IsString()
   @IsNotEmpty()
-  @Field(() => String)
-  @Prop({ required: true, type: String })
-  role: string;
+  @IsEnum(Role)
+  @Field(() => Role)
+  @Prop({ required: true, type: String, enum: Role })
+  role: Role;
 
-  @IsString()
   @IsNotEmpty()
-  @Field(() => String)
-  @Prop({ required: true, type: String })
-  action: string;
+  @IsEnum(Action)
+  @Field(() => Action)
+  @Prop({ required: true, type: String, enum: Action })
+  action: Action;
 
-  @IsString()
   @IsNotEmpty()
-  @Field(() => String)
-  @Prop({ required: true, type: String })
-  object: string;
+  @IsEnum(Resource)
+  @Field(() => Resource)
+  @Prop({ required: true, type: String, enum: Resource })
+  object: Resource;
 
   @Type(() => String)
   @Field(() => [String])
