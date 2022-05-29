@@ -53,7 +53,7 @@ export class GrantController {
     return await this.grantService.delete(id);
   }
 
-  @Put(':id')
+  @Put(':id/restore')
   public async restore(@Param('id') id: string): Promise<Grant> {
     return await this.grantService.restore(id);
   }

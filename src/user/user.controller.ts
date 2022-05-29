@@ -53,7 +53,7 @@ export class UserController {
     return await this.userService.delete(id);
   }
 
-  @Put(':id')
+  @Put(':id/restore')
   public async restore(@Param('id') id: string): Promise<User> {
     return await this.userService.restore(id);
   }
