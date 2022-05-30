@@ -1,8 +1,7 @@
 import { Grant, GrantDocument } from 'grant/entities/grant.entity';
 import { Command, CommandRunner, Option } from 'nest-commander';
 import { User, UserDocument } from 'user/entities/user.entity';
-import { grant } from './collections/grant.collection';
-import { user } from './collections/user.collection';
+import { user, grant } from './collections/seeds';
 import { InjectModel } from '@nestjs/mongoose';
 import { Injectable } from '@nestjs/common';
 import { Model } from 'mongoose';
@@ -56,7 +55,6 @@ export class MongoService implements CommandRunner {
     } catch (error) {
       console.log(error);
     } finally {
-      // this.mongoProvider.close();
       console.log('Mongo seeded!');
     }
   }
