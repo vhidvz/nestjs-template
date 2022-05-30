@@ -28,7 +28,7 @@ export class MongoService implements CommandRunner {
     passedParams: string[],
     options?: MongoCommandOptions,
   ): Promise<void> {
-    if (passedParams.includes('seed')) this.seed(options);
+    if (passedParams.includes('seed')) await this.seed(options);
   }
 
   public async seed(options?: MongoCommandOptions): Promise<void> {

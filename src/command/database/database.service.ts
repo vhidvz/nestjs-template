@@ -20,7 +20,7 @@ export class DatabaseService implements CommandRunner {
     passedParams: string[],
     options?: DatabaseCommandOptions,
   ): Promise<void> {
-    if (passedParams.includes('seed')) this.seed(options);
+    if (passedParams.includes('seed')) await this.seed(options);
   }
 
   public async seed(options?: DatabaseCommandOptions): Promise<void> {
